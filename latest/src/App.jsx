@@ -1,121 +1,114 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useEffect, useState } from 'react'
+import Cart from './components/Cart'
+import DarkModeToggle from './components/DarkModeToggle'
+import ProductList from './components/ProductList'
 import './App.css'
 
+const products = [
+  {
+    id: 1,
+    name: 'Wireless Headphones',
+    category: 'Electronics',
+    price: 89.99,
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 2,
+    name: 'Smart Watch',
+    category: 'Electronics',
+    price: 129.99,
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 3,
+    name: 'Cotton Hoodie',
+    category: 'Fashion',
+    price: 49.99,
+    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 4,
+    name: 'Running Shoes',
+    category: 'Fashion',
+    price: 74.99,
+    image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 5,
+    name: 'Ceramic Plant Pot',
+    category: 'Home',
+    price: 24.99,
+    image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=600&q=80',
+  },
+  {
+    id: 6,
+    name: 'Desk Lamp',
+    category: 'Home',
+    price: 39.99,
+    image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80',
+  },
+]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [category, setCategory] = useState('All')
+  const [cart, setCart] = useState([])
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light'
+  }, [darkMode])
+
+  const categories = ['All', ...new Set(products.map((product) => product.category))]
+  const filteredProducts =
+    category === 'All'
+      ? products
+      : products.filter((product) => product.category === category)
+
+  function handleCategoryChange(event) {
+    setCategory(event.target.value)
+  }
+
+  function handleAddToCart(product) {
+    setCart((currentCart) => [...currentCart, product])
+  }
+
+  function handleToggleDarkMode() {
+    setDarkMode((currentMode) => !currentMode)
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    <main className={`shop ${darkMode ? 'dark-mode' : ''}`}>
+      <section className="shop-header">
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+          <p className="eyebrow">React useState shop</p>
+          <h1>Dynamic Shopping Application</h1>
+          <p className="shop-intro">
+            Filter products by category and add your favorite items to the cart.
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+
+        <label className="category-filter">
+          <span>Category</span>
+          <select value={category} onChange={handleCategoryChange}>
+            {categories.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <DarkModeToggle
+          darkMode={darkMode}
+          onToggleDarkMode={handleToggleDarkMode}
+        />
       </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <div className="shop-layout">
+        <ProductList products={filteredProducts} onAddToCart={handleAddToCart} />
+        <Cart cartItems={cart} />
+      </div>
+    </main>
   )
 }
 
