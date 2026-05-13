@@ -1,18 +1,70 @@
-# React + Vite
+# Dynamic Shopping Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React shopping app built with Vite. It displays a list of products, lets users filter by category, add items to a cart, view the cart total, and switch between light and dark mode.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Product listing with images, categories, and prices
+- Category filtering
+- Add-to-cart functionality
+- Cart item count and total price calculation
+- Light and dark mode toggle
+- Responsive layout for desktop and mobile screens
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- React
+- Vite
+- CSS
 
-Note: This will impact Vite dev & build performances.
+## Getting Started
 
-## Expanding the ESLint configuration
+Install dependencies:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Project Structure
+
+```text
+src/
+  components/
+    Cart.jsx
+    DarkModeToggle.jsx
+    ProductCard.jsx
+    ProductList.jsx
+  App.jsx
+  App.css
+  index.css
+  main.jsx
+```
+
+## Main Components
+
+- `App.jsx` manages product data, filtering, cart state, and theme state.
+- `ProductList.jsx` renders the filtered products.
+- `ProductCard.jsx` displays each product and its add-to-cart button.
+- `Cart.jsx` shows selected items and the total cost.
+- `DarkModeToggle.jsx` switches the app between light and dark mode.
+
+## Author
+Hiel Sang
